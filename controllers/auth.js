@@ -8,8 +8,7 @@ exports.signup = (req,res) =>{
     let errmsgs = []
     errors.array().forEach(error => {
         errmsgs.push({
-            msg:error.msg,
-            param:error.param
+            msg:error.msg
         })    
     });
     if(!errors.isEmpty()){return res.status(422).json({errmsgs})};

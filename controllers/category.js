@@ -11,11 +11,17 @@ exports.getCategoryById = (req,res,next,id)=>{
 
 exports.createCategory = (req,res)=>{
     const category = new Category(req.body);
+    console.log(req.body)
     category.save((err,category)=>{
-        if(err){return res.status(400).json({error: "not able to save category"})}
-        res.json({category});
+        if(err){
+            console.log(err)
+            return res.status(400).json({error: "not able to save category"})
+        }
+        console.log({category})
+        return res.json({category});
     })
 }
+
 
 exports.getCategory = (req,res) =>{
     return res.json(req.category)
@@ -40,7 +46,7 @@ exports.updateCategory = (req,res)=>{
 
 exports.removeCategory = (req,res)=>{
     const category = req.category;
-    Category.remove((err, category)=>{
+    category.remove((err, category)=>{
         if(err){return res.status(400).json({error: "failed to delete category"})};
         res.json({
             msg:`${category}successfully deleted`
