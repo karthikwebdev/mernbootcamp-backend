@@ -20,7 +20,7 @@ exports.signup = (req,res) =>{
 }
 
 exports.signin = (req,res) =>{
-    const {email,password} = req.body
+    const { email,password } = req.body
     const errors = validationResult(req)
     let errmsgs = []
     errors.array().forEach(error => {
@@ -32,7 +32,7 @@ exports.signin = (req,res) =>{
     if(!errors.isEmpty()){return res.status(422).json({errmsgs})}
     User.findOne({email},(err,user)=>{
         if(err || !user ){return res.status(400).json({err:"user email doesn't exists"})}
-        if(!user.authenticate(password)){return res.status(401).json({err:"email and password donot match"})}
+        if(!user.authenticate(password)){return res.status(401).json({err:"email and password don't match"})}
         //create token
         const token = jwt.sign({_id: user._id},process.env.SECRET)
         //put token into cookie
@@ -58,7 +58,7 @@ exports.isSignedIn = expressJwt({
 exports.isAuthenticated = (req, res, next) => {
     // req.profile._id == req.auth._id only use double equal as they are not equal 
     let checker = req.profile && req.auth && req.profile._id == req.auth._id;
-    if(!checker){return res.status(403).json({err:"ACCESS DENIED"})};
+    if(!checker){return res.status(403).json({err:"ACCESS DENIED not athenticated"})};
     next();
 }
 

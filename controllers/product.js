@@ -85,13 +85,12 @@ exports.updateProduct = (req,res)=>{
 
 //product listing
 exports.getAllProducts = (req,res) =>{
-    let limit = req.query.limit ? parseInt(req.query.limit) : 8
-    let sortBy = req.query.sortBy ? req.query.sortBy : "_id"
+    let sortBy = req.query.sortBy ? req.query.sortBy : "name"
+    let order = req.query.order ? req.query.order : -1
     Product.find()
     .select("-photo")
     .populate("category")
-    .sort([[sortBy,"asc" ]])
-    .limit(limit)
+    .sort([[sortBy,order]])
     .exec((err, products)=>{
         if(err){return res.status().json({error:"No product Found"})}
         res.json(products)
@@ -105,11 +104,11 @@ exports.updateStock = (req, res, next) =>{
         return {
             updateOne:{
                 filter:{_id:prod._id},
-                update:{$inc:{stock: -prod.count, sold:+prod.count}}
+                update:{$inc:{stock: -1, sold:+1}}
             }
         }
     })
-    product.bulkWrite(myOperations,{},(err,products)=>{
+    Product.bulkWrite(myOperations,{},(err,products)=>{
         if(err){return res.status(400).json({error:"bulk operation failed"})};
         next()
     })

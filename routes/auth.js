@@ -17,9 +17,6 @@ router.post('/signin',
     check('password',"password is required").isLength({ min: 1 })
 ],signin);
 
-router.get('/signout',signout);
+router.get('/signout',isSignedIn,signout);
 
-router.get('/test',isSignedIn,(req,res)=>{
-    res.json(req.auth)
-});
 module.exports = router;

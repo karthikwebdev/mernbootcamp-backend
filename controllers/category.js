@@ -49,7 +49,7 @@ exports.removeCategory = (req,res)=>{
     category.remove((err, category)=>{
         if(err){return res.status(400).json({error: "failed to delete category"})};
         res.json({
-            msg:`${category}successfully deleted`
+            category
         })
     })
 }

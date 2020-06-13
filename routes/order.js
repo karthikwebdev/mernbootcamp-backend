@@ -11,9 +11,9 @@ router.param("userId", getUserById)
 router.param("orderId", getOrderById)
 
 //actual routes
-router.post("/order/create/:uderId",isSignedIn, isAuthenticated, pushOrderInPurchaseList, updateStock, createOrder);
+router.post("/order/create/:userId",isSignedIn, isAuthenticated, pushOrderInPurchaseList, updateStock, createOrder);
 router.get("/order/all/:userId", isSignedIn, isAuthenticated, isAdmin, getAllOrders);
-router.get("/order/status/:userId", isSignedIn, isAuthenticated, isAdmin, getOrderstatus)
+router.get("/order/status/:userId", isSignedIn, isAuthenticated, isAdmin, getOrderstatus);
 router.put("/order/:orderId/status/:userId", isSignedIn, isAuthenticated, isAdmin, updateStatus);
 
 

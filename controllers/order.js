@@ -1,6 +1,5 @@
 const { Order, ProductCart } = require("../models/order");
 
-
 exports.getOrderById = (req,res,next,id) =>{
     Order.findById(id)
     .populate("products.product", "name price")
@@ -29,11 +28,9 @@ exports.getAllOrders = (req,res) =>{
     });
 };
 
-
 exports.getOrderstatus = (req,res) =>{
     res.json(Order.schema.path("status").enumValues)
 }
-
 
 exports.updateStatus = (req,res)=>{
     Order.update(

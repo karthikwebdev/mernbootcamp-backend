@@ -2,7 +2,7 @@ const User = require("../models/user");
 const Order = require("../models/order")
 
 exports.getUserById = (req, res, next, id)=> {
-    User.findById(id).exec((err, user)=> {
+    User.findById(id).exec((err, user) => {
         if(err || !user){
             return res.status(400).json({
                 error:"no user was found in db"
